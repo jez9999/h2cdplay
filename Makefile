@@ -1,7 +1,7 @@
 OUTDIR = .
 
 # mingw build (win32)
-BASSPATH = C:\bass24\c
+BASSPATH = /c/Development/bass24/c
 BASSLIB = $(BASSPATH)/bass.lib
 FLAGS = -Wall -s -Os -I$(BASSPATH)
 CC = gcc

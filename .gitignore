@@ -1,0 +1,5 @@
+# exe output files
+*.exe
+
+# music tracks
+/tracks

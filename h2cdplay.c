@@ -77,7 +77,7 @@ int main(int argc, char **argv) {
 	float volume = 1.0;
 	char trkbuf[1024];
 
-	printf("HOMM2 CD music player\n");
+	printf("HOMM2 CD music player - Jez patch v1.0\n");
 
 	// Check the correct BASS was loaded
 	if (HIWORD(BASS_GetVersion()) != BASSVERSION) {
