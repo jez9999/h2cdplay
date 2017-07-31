@@ -62,10 +62,7 @@ void StopChan(DWORD chan) {
 
 	// Fadeout and stop
 	log_str("Stopping %02d playback...\n", now_playing);
-	BASS_ChannelSlideAttribute(chan, BASS_ATTRIB_VOL, -1, 200);
-	while (BASS_ChannelIsSliding(chan, 0)) {
-		usleep(100);
-	}
+	BASS_ChannelSetAttribute(chan, BASS_ATTRIB_VOL, 0.0);
 	BASS_ChannelStop(chan);
 	now_playing = 0;
 }
@@ -174,8 +171,7 @@ int main(int argc, char **argv) {
 				}
 				else {
 					// we're starting from the middle of track, do fade-in
-					BASS_ChannelSetAttribute(chan, BASS_ATTRIB_VOL, 0.0);
-					BASS_ChannelSlideAttribute(chan, BASS_ATTRIB_VOL, volume, 2000);
+					BASS_ChannelSetAttribute(chan, BASS_ATTRIB_VOL, volume);
 				}
 			}
 			else {
