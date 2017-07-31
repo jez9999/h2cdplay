@@ -126,7 +126,6 @@ int main(int argc, char **argv) {
 
 			// Preload next chan
 			DWORD next = 0;
-			int next_len = -1;
 
 			sprintf(trkbuf, "%s/track%02d.mp3", trkpath, trknum);
 			next = BASS_StreamCreateFile(FALSE, trkbuf, 0, 0, BASS_STREAM_AUTOFREE);
@@ -134,23 +133,6 @@ int main(int argc, char **argv) {
 				log_str("Error while opening track #%d\n", trknum);
 				continue;
 			}
-
-			// Check length
-			{
-				QWORD pos = BASS_ChannelGetLength(next, BASS_POS_BYTE);
-				if (pos != -1) {
-					next_len = (DWORD)BASS_ChannelBytes2Seconds(next, pos);
-				}
-			}
-			// "jingle"? play it and forget it
-			if (next_len <= 10)
-				{
-					log_str
-						("Track #%02d is a jingle (%d sec), playing in background\n",
-							trknum, next_len);
-					BASS_ChannelPlay (next, FALSE);
-					continue;
-				}
 
 			// okay, it's not a jingle. do full-fledged processing (stop, restore, etc)
 			StopChan(chan);
