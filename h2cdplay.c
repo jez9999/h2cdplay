@@ -45,7 +45,7 @@ const int track_data[] = {
 	1,  // track25: jingle music
 	1,  // track26: jingle music
 	1,  // track27: jingle music
-	2,  // track28: enemy move music music
+	2,  // track28: enemy move music
 	1,  // track29: jingle music
 	1,  // track30: jingle music
 	1,  // track31: jingle music
