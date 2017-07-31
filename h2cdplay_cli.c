@@ -40,7 +40,7 @@ int main(int argc, char **argv) {
 		fire_event(trknum);
 
 		if (trknum == 63) {
-			printf ("Terminating\n");
+			printf("Terminating\n");
 			return 0;
 		}
 	}
