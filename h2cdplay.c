@@ -1,5 +1,5 @@
 /*
- * Basic HOMM2 player
+ * HOMM2 music player server
  */
 
 #include <windows.h>

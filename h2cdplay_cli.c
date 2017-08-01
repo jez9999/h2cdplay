@@ -1,3 +1,7 @@
+/*
+ * HOMM2 music player CLI - communicates with server via events
+ */
+
 #include <stdio.h>
 #include <windows.h>
 
