@@ -110,7 +110,6 @@ void StopChan(DWORD chan) {
 
 	// Stop track
 	log_str("Stopping %02d playback...\n", now_playing);
-	////////////////BASS_ChannelSetAttribute(chan, BASS_ATTRIB_VOL, 0.0);
 	BASS_ChannelStop(chan);
 	now_playing = 0;
 }
