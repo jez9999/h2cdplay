@@ -2,4 +2,4 @@
 *.exe
 
 # music tracks
-/tracks
+/tracks/*.mp3

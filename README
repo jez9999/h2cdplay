@@ -1,11 +1,13 @@
 h2cdplay is a sound server that plays tracks on win32 events.  It's intended to
-be used with old Windows games that used CD audio soundtracks (most of them
-have compatibility issues on modern systems).  It was created for Heroes of
-Might and Magic 2, but can be used with other games as well. Of course, game
-needs to be patched first to fire the events on track / volume switches, and
-you need to rip/encode original audio tracks.
+be used with Heroes of Might and Magic 2, an old Windows game that used CD
+audio soundtracks and whose CD music playback has compatibility issues on
+modern systems).  HOMM2 needs to be patched first to fire the events on
+track/volume switches (the modified executable is in the "Heroes of Might and
+Magic II CD MUSIC + PATCH" package), and you need to rip/encode original audio
+tracks then put them in a subdirectory 'tracks', naming them track01.mp3,
+track02.mp3, track03.mp3, etc.
 
-h2cdplay uses BASS audio library (http://www.un4seen.com/bass.html) to
+h2cdplay uses the BASS audio library (http://www.un4seen.com/bass.html) to
 decode/playback tracks.
 
 h2cdplay works with WINE on linux. You can also build more "native" binaries
