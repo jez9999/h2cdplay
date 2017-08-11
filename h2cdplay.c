@@ -40,7 +40,7 @@ const int track_data[] = {
 	1,  // track20: new week music
 	1,  // track21: new week music
 	3,  // track22: campaign music
-	3,  // track23: monolith music
+	1,  // track23: obelisk music
 	3,  // track24: campaign music
 	1,  // track25: jingle music
 	1,  // track26: jingle music
