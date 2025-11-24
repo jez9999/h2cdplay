@@ -8,24 +8,21 @@ CC = cl
 RM = del /Q
 
 # Compiler flags
-CFLAGS = /nologo /W3 /O2 /TC /I"$(BASSPATH)"
+CFLAGS = /nologo /W3 /O2 /TC /I"$(BASSPATH)" /D_CRT_SECURE_NO_WARNINGS
 
-# Link flags
+# Linker flags
 LDFLAGS = /nologo
 
-# Pattern rule: build .exe from .c
-{$(OUTDIR)}.c.exe:
-	$(CC) $(CFLAGS) $< $(BASSLIB) $(LDFLAGS) /Fe$@
-
-# Explicit pattern rule (more reliable)
+# Pattern rule: compile .c to .exe
+# $< = source file, $@ = target executable
 .c.exe:
-	$(CC) $(CFLAGS) $< $(BASSLIB) $(LDFLAGS) /Fe$(OUTDIR)\$@
-
-.PHONY: all clean
+	$(CC) $(CFLAGS) $< /Fe$(OUTDIR)\$@ /link $(BASSLIB) $(LDFLAGS)
 
 TARGET = h2cdplay.exe h2cdplay_cli.exe
 
 all: $(TARGET)
 
 clean:
-	$(RM) $(OUTDIR)\$(TARGET)
+	$(RM) $(OUTDIR)\$(TARGET) *.obj
+
+rebuild: clean all

@@ -1,5 +1,8 @@
-# exe output files
+# object and output files
+*.obj
 *.exe
 
 # music tracks
 /tracks/*.mp3
+
+.vs/

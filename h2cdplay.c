@@ -120,7 +120,7 @@ int main(int argc, char **argv) {
 	float volume = 1.0;
 	char trkbuf[1024];
 
-	printf("HOMM2 music player - Jez patch v1.0\n");
+	printf("HOMM2 music player - Jez patch v2.1\n");
 
 	// Check the correct BASS was loaded
 	if (HIWORD(BASS_GetVersion()) != BASSVERSION) {
@@ -218,7 +218,7 @@ int main(int argc, char **argv) {
 			if (tvar > 10) {
 				tvar = 0;
 			}
-			volume = 0.1 * tvar;
+			volume = 0.1f * tvar;
 			log_str("Volume requested: %d, final: %.2f\n", vol_req, volume);
 
 			if (BASS_ChannelIsActive(chan)) {
