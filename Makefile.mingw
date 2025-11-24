@@ -1,4 +1,4 @@
-# MinGW gcc makefile
+# MinGW gcc makefile (build with 'make')
 OUTDIR = .
 
 # mingw build (win32)

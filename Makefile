@@ -1,4 +1,4 @@
-# MS NMake makefile
+# MS NMake makefile (build with 'nmake' or 'nmake rebuild' to force rebuild each time)
 OUTDIR = .
 
 # MSVC build (Win32)
