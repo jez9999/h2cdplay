@@ -17,16 +17,17 @@ const int track_data[] = {
 	// Track data bitfield:
 	// 1: reset this track to beginning when playing it
 	// 2: loop this track
+	// 4: reset this track to beginning when playing it IF restartcastlemusic is on
 	1,  // track01: jingle music
 	3,  // track02: battle music
 	3,  // track03: battle music
 	3,  // track04: battle music
-	3,  // track05: castle music
-	3,  // track06: castle music
-	3,  // track07: castle music
-	3,  // track08: castle music
-	3,  // track09: castle music
-	3,  // track10: castle music
+	6,  // track05: castle music
+	6,  // track06: castle music
+	6,  // track07: castle music
+	6,  // track08: castle music
+	6,  // track09: castle music
+	6,  // track10: castle music
 	2,  // track11: overworld music
 	2,  // track12: overworld music
 	2,  // track13: overworld music
@@ -101,7 +102,7 @@ void StopChan(DWORD chan) {
 		return;
 	}
 
-	// Stop the track that has been playing
+	// Save position of the track that has been playing
 	if (now_playing > 0 && !(track_data[now_playing-1] & 1)) {
 		track_position[now_playing] = BASS_ChannelGetPosition(chan, BASS_POS_BYTE);
 		log_str("Saved position for track #%02d (%08ld bytes)\n", now_playing, track_position[now_playing]);
@@ -119,8 +120,27 @@ int main(int argc, char **argv) {
 	int trknum = 0;
 	float volume = 1.0;
 	char trkbuf[1024];
+	int restartcastlemusic = 0;
 
 	printf("HOMM2 music player - Jez patch v2.1\n");
+
+	if (argc > 1) {
+		if (strcmp(argv[1], "restartcastlemusic") == 0)
+		{
+			printf("\n");
+			printf("Will restart the castle music each time instead of saving position.\n");
+			restartcastlemusic = 1;
+		}
+		else if (strcmp(argv[1], "/?") == 0 || strcmp(argv[1], "-h") == 0)
+		{
+			printf("\n");
+			printf("Usage: %s [options]\n", argv[0]);
+			printf("Options:\n");
+			printf("  restartcastlemusic   Restart the castle music each time instead of saving position\n");
+			printf("  /? or -h:            Display this help message\n");
+			return 0;
+		}
+	}
 
 	// Check the correct BASS was loaded
 	if (HIWORD(BASS_GetVersion()) != BASSVERSION) {
@@ -193,7 +213,14 @@ int main(int argc, char **argv) {
 			BASS_ChannelSetAttribute(chan, BASS_ATTRIB_VOL, volume);
 
 			// Seek to start
-			if (now_playing > 0 && !(track_data[now_playing-1] & 1) && track_position[now_playing] > 0) {
+			if (
+				now_playing > 0 &&
+				track_position[now_playing] > 0 &&
+				!(
+					(track_data[now_playing-1] & 1) ||
+					((track_data[now_playing-1] & 4) && restartcastlemusic)
+				)
+			) {
 				log_str("Playing track %s, volume = %.2f (saved position = %08ld)\n", trkbuf, volume, track_position[now_playing]);
 				if (!BASS_ChannelSetPosition(chan, track_position[now_playing], BASS_POS_BYTE)) {
 					log_str("Seek failed");
