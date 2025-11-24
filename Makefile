@@ -1,21 +1,25 @@
+# MS NMake makefile
 OUTDIR = .
 
-# mingw build (win32)
-BASSPATH = /c/Development/h2cdplay/bass24/c
-BASSLIB = $(BASSPATH)/bass.lib
-FLAGS = -Wall -s -Os -I$(BASSPATH)
-CC = gcc
-RM = rm
+# MSVC build (Win32)
+BASSPATH = C:\Development\h2cdplay\bass24\c
+BASSLIB = "$(BASSPATH)\bass.lib"
+CC = cl
+RM = del /Q
 
-# winelib build (linux)
-# BASSPATH = $(HOME)/build/bass
-# BASSLIB = -L$(BASSPATH) -lbass -Wl,-rpath,$(BASSPATH)
-# FLAGS = -Wall -s -Os -I$(BASSPATH) -mconsole -mno-cygwin
-# CC = winegcc
-# RM = rm
+# Compiler flags
+CFLAGS = /nologo /W3 /O2 /TC /I"$(BASSPATH)"
 
-%.exe: %.c
-	$(CC) $(FLAGS) $*.c $(BASSLIB) $(LIBS) -o $(OUTDIR)/$@
+# Link flags
+LDFLAGS = /nologo
+
+# Pattern rule: build .exe from .c
+{$(OUTDIR)}.c.exe:
+	$(CC) $(CFLAGS) $< $(BASSLIB) $(LDFLAGS) /Fe$@
+
+# Explicit pattern rule (more reliable)
+.c.exe:
+	$(CC) $(CFLAGS) $< $(BASSLIB) $(LDFLAGS) /Fe$(OUTDIR)\$@
 
 .PHONY: all clean
 
@@ -24,4 +28,4 @@ TARGET = h2cdplay.exe h2cdplay_cli.exe
 all: $(TARGET)
 
 clean:
-	$(RM) $(OUTDIR)/$(TARGET)
+	$(RM) $(OUTDIR)\$(TARGET)
